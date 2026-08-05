@@ -1,0 +1,196 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.card {
+    transition: 0.3s;
+    border-radius: 15px;
+}
+
+    .card:hover {
+        transform: scale(1.03);
+    }
+
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    width: 100%;
+}
+
+.card {
+    transition: .3s;
+    border-radius: 12px;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
+    }
+
+    .card img {
+        width: 100%;
+        object-fit: cover;
+    }
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.btn {
+    white-space: nowrap;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+@media(max-width:768px) {
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .card {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        font-size: 13px;
+    }
+}
+
+@media(max-width:576px) {
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+    }
+}
+
+.btn-search {
+    background: linear-gradient(45deg,#0072ff,#00c6ff);
+    color: white;
+    border: none;
+    transition: .3s;
+}
+
+    .btn-search:hover {
+        transform: scale(1.05);
+        color: white;
+    }
+
+.btn-add {
+    background: linear-gradient(45deg,#11998e,#38ef7d);
+    color: white;
+    border: none;
+    transition: .3s;
+}
+
+    .btn-add:hover {
+        color: white;
+        transform: scale(1.05);
+    }
+
+.btn-save {
+    background: linear-gradient(90deg,#2563eb,#1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 28px;
+    font-weight: 600;
+}
+
+    .btn-save:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(37,99,235,.3);
+    }
+
+.btn-update {
+    background: linear-gradient(90deg,#f59e0b,#d97706);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 28px;
+    font-weight: 600;
+}
+
+    .btn-update:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(245,158,11,.3);
+    }
+
+.btn-delete {
+    background: linear-gradient(90deg,#ef4444,#dc2626);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 28px;
+    font-weight: 600;
+}
+
+    .btn-delete:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(239,68,68,.3);
+    }

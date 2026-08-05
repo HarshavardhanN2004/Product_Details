@@ -1,0 +1,122 @@
+﻿@model Product_Details.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white text-center">
+
+                    <h3>Create Account</h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-action="Register">
+                        <div class="mb-3">
+                            <label asp-for="UserName"></label>
+
+                            <input asp-for="UserName" class="form-control" />
+
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Phone"></label>
+
+                            <input asp-for="Phone"
+                                   class="form-control"
+                                   maxlength="10" />
+
+                            <span asp-validation-for="Phone"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword"></label>
+                            <input asp-for="ConfirmPassword"
+                                   type="password"
+                                   class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Address"></label>
+                            <textarea asp-for="Address" class="form-control"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col">
+
+                                <label asp-for="City"></label>
+
+                                <input asp-for="City" class="form-control" />
+
+                                <span asp-validation-for="City" class="text-danger"></span>
+
+                            </div>
+
+                            <div class="col">
+
+                                <label asp-for="Pincode"></label>
+
+                                <input asp-for="Pincode" class="form-control" />
+
+                                <span asp-validation-for="Pincode" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+
+                        <br />
+
+                        <button class="btn btn-success w-100">
+                            Register
+                        </button>
+
+                        <a asp-action="Login"
+                           asp-controller="Account"
+                           class="btn btn-primary w-100 mt-3">
+                            Back
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

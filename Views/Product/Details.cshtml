@@ -1,0 +1,114 @@
+﻿@model Product_Details.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="row justify-content-center mt-4">
+
+    <div class="col-md-7">
+
+        <div class="card shadow">
+
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img src="@Model.ImagePath"
+                     class="card-img-top"
+                     style="height:350px;object-fit:cover;" />
+            }
+
+            <div class="card-body">
+
+                <h2 class="text-center">@Model.ProductName</h2>
+
+                <hr />
+
+                <h5>
+                    <b>Type :</b> @Model.Type
+                </h5>
+
+                <h5>
+                    <b>Description :</b>
+                </h5>
+
+                <p>@Model.Description</p>
+
+                <h5>
+                    <b>Price :</b>
+
+                    ₹<span id="price">@Model.Price</span>
+                </h5>
+
+                <h5>
+                    <b>Available Quantity :</b>
+
+                    @Model.Quantity
+                </h5>
+
+                <hr />
+
+                <form asp-action="PlaceOrder" method="post">
+
+                    <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            <b>Order Quantity</b>
+                        </label>
+
+                        <input type="number"
+                               id="qty"
+                               name="QuantityOrdered"
+                               value="1"
+                               min="1"
+                               max="@Model.Quantity"
+                               class="form-control" />
+
+                    </div>
+
+                    <h4>
+
+                        Total Amount :
+
+                        ₹<span id="total">@Model.Price</span>
+
+                    </h4>
+
+                    <br />
+
+                    <button type="submit" class="btn btn-success w-100">
+
+                        Place Order
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        let price=parseFloat(document.getElementById("price").innerHTML);
+
+        let qty=document.getElementById("qty");
+
+        let total=document.getElementById("total");
+
+        qty.addEventListener("input",function(){
+
+        total.innerHTML=price*qty.value;
+
+        });
+
+    </script>
+
+}

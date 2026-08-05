@@ -1,0 +1,266 @@
+﻿@model Product_Details.ViewModels.CartCheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container mt-4">
+
+    <h3 class="mb-4">
+
+        Checkout
+
+    </h3>
+
+    <form asp-action="PlaceAllOrders" method="post">
+
+        @for (int i = 0; i < Model.CartItems.Count; i++)
+        {
+            <input asp-for="CartItems[i].ProductId" type="hidden" />
+            <input asp-for="CartItems[i].Quantity" type="hidden" />
+        }
+
+        <input asp-for="Name" type="hidden" />
+        <input asp-for="Phone" type="hidden" />
+        <input asp-for="Address" type="hidden" />
+        <input asp-for="City" type="hidden" />
+        <input asp-for="Pincode" type="hidden" />
+
+        @foreach (var item in Model.CartItems)
+        {
+            <div class="card shadow-sm mb-3">
+
+                <div class="card-body">
+
+                    <div class="row align-items-center">
+
+                        <div class="col-md-2">
+
+                            <img src="@item.ImagePath"
+                                 width="100"
+                                 height="90"
+                                 style="object-fit:cover;" />
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <h5>@item.ProductName</h5>
+
+                            <p>₹ @item.Price</p>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            Quantity :
+
+                            @item.Quantity
+
+                        </div>
+
+                        <div class="col-md-3 text-end">
+
+                            <strong>
+
+                                ₹ @item.Total
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-body text-end">
+
+                <h3>
+
+                    Grand Total :
+
+                    <span class="text-success">
+
+                        ₹ @Model.GrandTotal
+
+                    </span>
+
+                </h3>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header bg-light">
+
+                <h5>Delivery Address</h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <h6>@Model.Name</h6>
+
+                <p class="mb-1">@Model.Phone</p>
+
+                <p class="mb-1">@Model.Address</p>
+
+                <p class="mb-1">@Model.City</p>
+
+                <p>@Model.Pincode</p>
+
+                <button type="button"
+                        class="btn btn-primary"
+                        onclick="showAddressForm()">
+
+                    Change Address
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="addressForm"
+             style="display:@(Model.ChangeAddress ? "block" : "none");">
+
+            <input asp-for="ChangeAddress"
+                   type="hidden"
+                   id="ChangeAddress" />
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+
+                    New Delivery Address
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <label>Name</label>
+
+                        <input asp-for="NewName" class="form-control" />
+
+                        <span asp-validation-for="NewName"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Phone</label>
+
+                        <input asp-for="NewPhone"
+                               class="form-control" />
+
+                        <span asp-validation-for="NewPhone"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Address</label>
+
+                        <textarea asp-for="NewAddress"
+                                  class="form-control"></textarea>
+
+                        <span asp-validation-for="NewAddress"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col">
+
+                            <label>City</label>
+
+                            <input asp-for="NewCity"
+                                   class="form-control" />
+
+                            <span asp-validation-for="NewCity"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                        <div class="col">
+
+                            <label>Pincode</label>
+
+                            <input asp-for="NewPincode"
+                                   class="form-control" />
+
+                            <span asp-validation-for="NewPincode"
+                                  class="text-danger"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="d-flex justify-content-between mt-4">
+
+            <a asp-action="Cart"
+               class="btn btn-outline-secondary btn-lg px-4">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Back
+
+            </a>
+
+            <button type="submit"
+                    class="btn btn-success btn-lg px-5">
+
+                <i class="bi bi-bag-check-fill"></i>
+
+                Place Order
+
+            </button>
+
+        </div>
+     </form>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+
+    function showAddressForm() {
+
+        document.getElementById("addressForm").style.display = "block";
+
+        document.getElementById("ChangeAddress").value = "true";
+
+        var form = $("form");
+
+        form.removeData("validator");
+        form.removeData("unobtrusiveValidation");
+
+        $.validator.unobtrusive.parse(form);
+
+    }
+
+</script>

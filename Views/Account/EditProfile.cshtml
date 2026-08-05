@@ -1,0 +1,113 @@
+﻿@model Product_Details.ViewModels.EditProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-warning">
+
+                    <h3>Edit Profile</h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-action="EditProfile">
+
+                        <input asp-for="UserId" type="hidden" />
+
+                        <div class="mb-3">
+                            <label asp-for="UserName"></label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Phone"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Address"></label>
+                            <textarea asp-for="Address"
+                                      class="form-control"></textarea>
+                            <span asp-validation-for="Address"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col">
+
+                                <label asp-for="City"></label>
+
+                                <input asp-for="City"
+                                       class="form-control" />
+
+                                <span asp-validation-for="City"
+                                      class="text-danger"></span>
+
+                            </div>
+
+                            <div class="col">
+
+                                <label asp-for="Pincode"></label>
+
+                                <input asp-for="Pincode"
+                                       class="form-control" />
+
+                                <span asp-validation-for="Pincode"
+                                      class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+
+                        <br />
+
+                        <button class="btn btn-success">
+
+                            Update Profile
+
+                        </button>
+
+                        <a asp-action="Profile"
+                           class="btn btn-secondary">
+
+                            Cancel
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

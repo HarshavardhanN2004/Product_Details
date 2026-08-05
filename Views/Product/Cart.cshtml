@@ -1,0 +1,235 @@
+﻿@model IEnumerable<Product_Details.ViewModels.CartViewModel>
+
+@{
+    ViewData["Title"] = "My Cart";
+}
+
+@{
+    decimal grandTotal = Model.Sum(x => x.Total);
+}
+
+<h2 class="text-center mb-4">
+    <i class="bi bi-cart-fill"></i> My Cart
+</h2>
+
+<div class="table-responsive"> 
+
+    <table class="table table-bordered table-hover align-middle">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>Image</th>
+
+                <th>Product</th>
+
+                <th>Price</th>
+
+                <th width="220">Quantity</th>
+
+                <th>Total</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td width="120">
+
+                        <img src="@item.ImagePath"
+                             width="90"
+                             height="80"
+                             style="object-fit:cover;" />
+
+                    </td>
+
+                    <td>
+
+                        @item.ProductName
+
+                    </td>
+
+                    <td>
+
+                        ₹ @item.Price
+
+                    </td>
+
+                    <td>
+
+                        <div class="d-flex align-items-center">
+
+                            <a asp-action="DecreaseQuantity"
+                               asp-route-id="@item.CartId"
+                               class="btn btn-danger btn-sm">
+
+                                -
+
+                            </a>
+
+                            <input value="@item.Quantity"
+                                   class="form-control text-center mx-2"
+                                   style="width:60px"
+                                   readonly />
+
+                            <a asp-action="IncreaseQuantity"
+                               asp-route-id="@item.CartId"
+                               class="btn btn-success btn-sm">
+
+                                +
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                    <td>
+
+                        ₹ @item.Total
+
+                    </td>
+
+                    <td>
+
+                        <div class="d-flex gap-2">
+
+                            <a asp-action="RemoveCart"
+                               asp-route-id="@item.CartId"
+                               class="btn btn-outline-danger btn-sm">
+
+                                Remove
+
+                            </a>
+
+                            <a asp-controller="Product"
+                               asp-action="BuyNow"
+                               asp-route-id="@item.ProductId"
+                               class="btn btn-success btn-sm">
+
+                                Buy Now
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+<div class="d-flex justify-content-between align-items-center mt-4">
+
+    <h4 class="fw-bold">
+
+        Grand Total :
+
+        <span class="text-success">
+
+            ₹ @grandTotal
+
+        </span>
+
+    </h4>
+
+    <div>
+
+        <a asp-action="UserIndex"
+           class="btn btn-secondary">
+
+            Continue Shopping
+
+        </a>
+
+        <a asp-controller="Product"
+           asp-action="BuyAll"
+           class="btn btn-primary">
+
+            <i class="bi bi-bag-check-fill"></i>
+
+            Buy All
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script> 
+    
+function buyAll()
+    {
+
+        window.location.href = "/Product/BuyAll";
+
+    }
+</script>
+
+
+<script>
+
+    document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+
+        let valid = true;
+
+        document.getElementById("NameError").innerHTML = "";
+        document.getElementById("PhoneError").innerHTML = "";
+        document.getElementById("AddressError").innerHTML = "";
+        document.getElementById("CityError").innerHTML = "";
+        document.getElementById("PincodeError").innerHTML = "";
+
+        let name = document.getElementById("Name").value.trim();
+        let phone = document.getElementById("Phone").value.trim();
+        let address = document.getElementById("Address").value.trim();
+        let city = document.getElementById("City").value.trim();
+        let pincode = document.getElementById("Pincode").value.trim();
+
+        if (name == "") {
+            document.getElementById("NameError").innerHTML = "Name is required";
+            valid = false;
+        }
+
+        if (phone == "") {
+            document.getElementById("PhoneError").innerHTML = "Phone Number is required";
+            valid = false;
+        }
+
+        if (address == "") {
+            document.getElementById("AddressError").innerHTML = "Address is required";
+            valid = false;
+        }
+
+        if (city == "") {
+            document.getElementById("CityError").innerHTML = "City is required";
+            valid = false;
+        }
+
+        if (pincode == "") {
+            document.getElementById("PincodeError").innerHTML = "Pincode is required";
+            valid = false;
+        }
+
+        if (!valid) {
+            e.preventDefault();
+        }
+
+    });
+
+</script>

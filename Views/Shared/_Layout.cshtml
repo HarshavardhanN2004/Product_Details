@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Product_Details</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Product_Details.styles.css" asp-append-version="true" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center fw-bold"
+                   asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    <i class="bi bi-bag-fill text-primary fs-2 me-2"></i>
+
+                    <span class="fs-4">
+
+                        Product_Details
+
+                    </span>
+
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <ul class="navbar-nav ms-auto">
+
+                            @if (Context.Session.GetString("UserName") != null)
+                            {
+                                <li class="nav-item me-3">
+
+                                    <a class="nav-link position-relative"
+                                       asp-controller="Product"
+                                       asp-action="Cart"
+                                       class="position-relative"
+                                       title="Items in Cart : @ViewBag.CartCount">
+
+                                        <i class="bi bi-cart3 fs-3"></i>
+
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                                            @(ViewBag.CartCount ?? 0)
+
+                                        </span>
+
+                                    </a>
+
+                                </li>
+
+                                @if (Context.Session.GetString("Role") == "User")
+                                {
+                                    <div class="dropdown">
+
+                                        <a class="nav-link dropdown-toggle"
+                                           href="#"
+                                           role="button"
+                                           data-bs-toggle="dropdown">
+
+                                            <i class="bi bi-person-circle fs-4"></i>
+
+                                            @Context.Session.GetString("UserName")
+
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-menu-end">
+
+                                            <li>
+
+                                                <a class="dropdown-item"
+                                                   asp-controller="Account"
+                                                   asp-action="Profile">
+
+                                                    <i class="bi bi-person"></i>
+
+                                                    My Profile
+
+                                                </a>
+
+                                            </li>
+
+                                            <li>
+
+                                                <hr class="dropdown-divider" />
+
+                                            </li>
+
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   asp-controller="Account"
+                                                   asp-action="ChangePassword">
+                                                    Change Password
+                                                </a>
+                                            </li>
+
+
+                                            <li>
+
+                                                <hr class="dropdown-divider" />
+
+                                            </li>
+
+                                            <li>
+
+                                                <a class="dropdown-item text-danger"
+                                                   asp-controller="Account"
+                                                   asp-action="Logout">
+
+                                                    <i class="bi bi-box-arrow-right"></i>
+
+                                                    Logout
+
+                                                </a>
+
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+                                }
+                            }
+
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+
+        <div class="container text-center">
+
+            © 2026 Product Management System 
+
+        </div>
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '@TempData["Success"]',
+            confirmButtonColor: '#3085d6'
+            });
+        </script>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: '@TempData["Error"]',
+            confirmButtonColor: '#d33'
+            });
+        </script>
+    }
+
+    <script>
+
+function logoutConfirm(){
+
+    Swal.fire({
+
+        title: 'Logout?',
+
+        text: 'Do you want to logout?',
+
+        icon: 'question',
+
+        showCancelButton: true,
+
+        confirmButtonText: 'Yes',
+
+        cancelButtonText: 'No'
+
+    }).then((result)=>{
+
+        if(result.isConfirmed){
+
+            window.location.href='/Account/Logout';
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

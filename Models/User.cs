@@ -1,0 +1,46 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Product_Details.Models
+{
+    public class User
+    {
+        [Key]
+        public int UserId { get; set; }
+
+        [Required(ErrorMessage = "Username is required.")]
+        [RegularExpression(@"^[A-Za-z ]+$",
+            ErrorMessage = "Username should contain only alphabets.")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Phone number is required.")]
+        [RegularExpression(@"^[6-9]\d{9}$",
+            ErrorMessage = "Phone number must start with 6-9 and contain exactly 10 digits.")]
+        public string Phone { get; set; }
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Enter a valid email address.")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is required.")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Confirm Password is required.")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Address is required.")]
+        public string Address { get; set; }
+
+        [Required(ErrorMessage = "City is required.")]
+        [RegularExpression(@"^[A-Za-z ]+$",
+            ErrorMessage = "City should contain only alphabets.")]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "Pincode is required.")]
+        [RegularExpression(@"^[1-9][0-9]{5}$",
+            ErrorMessage = "Pincode must contain exactly 6 digits.")]
+        public string Pincode { get; set; }
+
+        public string Role { get; set; } = "User";
+    }
+}

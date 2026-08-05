@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Product_Details</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Product_Details.styles.css" asp-append-version="true" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg shadow-sm"
+             style="background: linear-gradient(90deg,#1e3a8a,#2563eb);">
+
+            <div class="container">
+
+                <a class="navbar-brand d-flex align-items-center text-white fw-bold"
+                   asp-controller="Product"
+                   asp-action="AdminIndex">
+
+                    <i class="bi bi-shield-lock-fill fs-3 me-2"></i>
+
+                    <span class="fs-4">
+
+                        Admin Panel
+
+                    </span>
+
+                </a>
+
+                <button class="btn btn-danger rounded-pill px-4"
+                        onclick="logoutConfirm()">
+
+                    <i class="bi bi-box-arrow-right"></i>
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+
+        <div class="container text-center">
+
+            © 2026 Product Management System
+
+        </div>
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '@TempData["Success"]',
+            confirmButtonColor: '#3085d6'
+            });
+        </script>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: '@TempData["Error"]',
+            confirmButtonColor: '#d33'
+            });
+        </script>
+    }
+
+    <script>
+
+        function logoutConfirm(){
+
+        Swal.fire({
+
+        title: 'Logout?',
+
+        text: 'Do you want to logout?',
+
+        icon: 'question',
+
+        showCancelButton: true,
+
+        confirmButtonText: 'Yes',
+
+        cancelButtonText: 'No'
+
+        }).then((result)=>{
+
+        if(result.isConfirmed){
+
+        window.location.href='/Account/Logout';
+
+        }
+
+        });
+
+        }
+
+    </script>
+
+</body>
+</html>

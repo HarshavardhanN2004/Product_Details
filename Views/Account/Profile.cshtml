@@ -1,0 +1,58 @@
+﻿@model Product_Details.Models.User
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3>My Profile</h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <p><strong>Username :</strong> @Model.UserName</p>
+
+                    <p><strong>Phone :</strong> @Model.Phone</p>
+
+                    <p><strong>Email :</strong> @Model.Email</p>
+
+                    <p><strong>Address :</strong> @Model.Address</p>
+
+                    <p><strong>City :</strong> @Model.City</p>
+
+                    <p><strong>Pincode :</strong> @Model.Pincode</p>
+
+                    <a asp-action="EditProfile"
+                       asp-route-id="@Model.UserId"
+                       class="btn btn-warning">
+
+                        Edit Profile
+
+                    </a>
+
+                    <a asp-action="UserIndex" asp-controller="Product"
+                       class="btn btn-secondary">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
