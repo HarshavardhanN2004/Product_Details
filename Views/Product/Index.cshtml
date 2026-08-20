@@ -125,3 +125,59 @@
     </table>
 
 </div>
+
+@if (ViewBag.TotalPages > 1)
+{
+    <nav aria-label="Admin product pagination" class="mt-4">
+
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-controller="Product"
+                   asp-route-page="@(ViewBag.CurrentPage - 1)"
+                   asp-route-search="@ViewBag.Search">
+
+                    Previous
+
+                </a>
+
+            </li>
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-controller="Product"
+                       asp-route-page="@i"
+                       asp-route-search="@ViewBag.Search">
+
+                        @i
+
+                    </a>
+
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-controller="Product"
+                   asp-route-page="@(ViewBag.CurrentPage + 1)"
+                   asp-route-search="@ViewBag.Search">
+
+                    Next
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+}

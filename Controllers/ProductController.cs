@@ -19,7 +19,7 @@ namespace Product_Details.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Index(string? search)
+        public IActionResult Index(string? search, int page = 1)
         {
             string role = HttpContext.Session.GetString("Role");
 
@@ -28,20 +28,51 @@ namespace Product_Details.Controllers
                 return RedirectToAction("UserIndex");
             }
 
+            int pageSize = 5;
+
             var products = _context.Products.AsQueryable();
 
-            if (!string.IsNullOrEmpty(search))
+           
+            if (!string.IsNullOrWhiteSpace(search))
             {
-                products = products.Where(p => p.ProductName.Contains(search));
+                products = products.Where(p =>
+                    p.ProductName.Contains(search));
             }
 
-            ViewBag.Search = search;
+            
+            int totalProducts = products.Count();
 
-            return View(products.ToList());
+           
+            int totalPages = (int)Math.Ceiling(
+                (double)totalProducts / pageSize);
+
+          
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            if (totalPages > 0 && page > totalPages)
+            {
+                page = totalPages;
+            }
+
+            var paginatedProducts = products
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.Search = search;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
+            return View(paginatedProducts);
         }
 
-        public IActionResult UserIndex(string search, string priceRange)
+        public IActionResult UserIndex(string search,string priceRange,int page = 1)
         {
+            int pageSize = 9;
+
             var products = _context.Products.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(search))
@@ -70,6 +101,26 @@ namespace Product_Details.Controllers
                 }
             }
 
+            int totalProducts = products.Count();
+
+            int totalPages = (int)Math.Ceiling(
+                (double)totalProducts / pageSize);
+
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            if (totalPages > 0 && page > totalPages)
+            {
+                page = totalPages;
+            }
+
+            var paginatedProducts = products
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
             string username = HttpContext.Session.GetString("UserName");
 
             var user = _context.Users
@@ -77,7 +128,7 @@ namespace Product_Details.Controllers
 
             var vm = new UserIndexViewModel
             {
-                Products = products.ToList(),
+                Products = paginatedProducts,
                 Checkout = new CheckoutViewModel()
             };
 
@@ -93,10 +144,13 @@ namespace Product_Details.Controllers
             ViewBag.Search = search;
             ViewBag.PriceRange = priceRange;
 
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
             ViewBag.CartCount = GetCartCount();
+
             return View(vm);
         }
-
         [HttpGet]
         public IActionResult Create()
         {

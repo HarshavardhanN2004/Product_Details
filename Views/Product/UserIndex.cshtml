@@ -55,9 +55,9 @@
 
         @foreach (var item in Model.Products)
         {
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="col-12 col-md-4">
 
-                <div class="card shadow-sm border-0 rounded-4 ">
+                <div class="card product-card border-0 rounded-4">
 
                     <h6 class="fw-bold">
                         @item.ProductName
@@ -167,6 +167,60 @@
     </div>
 
 </div>
+
+@if (ViewBag.TotalPages > 1)
+{
+    <nav aria-label="Product pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+
+                <a class="page-link"
+                   asp-action="UserIndex"
+                   asp-route-page="@(ViewBag.CurrentPage - 1)"
+                   asp-route-search="@ViewBag.Search"
+                   asp-route-priceRange="@ViewBag.PriceRange">
+
+                    Previous
+
+                </a>
+
+            </li>
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+
+                    <a class="page-link"
+                       asp-action="UserIndex"
+                       asp-route-page="@i"
+                       asp-route-search="@ViewBag.Search"
+                       asp-route-priceRange="@ViewBag.PriceRange">
+
+                        @i
+
+                    </a>
+
+                </li>
+            }
+
+            <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+
+                <a class="page-link"
+                   asp-action="UserIndex"
+                   asp-route-page="@(ViewBag.CurrentPage + 1)"
+                   asp-route-search="@ViewBag.Search"
+                   asp-route-priceRange="@ViewBag.PriceRange">
+
+                    Next
+
+                </a>
+
+            </li>
+
+        </ul>
+    </nav>
+}
 
 <script>
   var productPrice = 0;
